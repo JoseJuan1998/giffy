@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+import { lazy, Suspense } from 'react';
+import { Route } from 'wouter';
 import './App.css';
+import {GiftsContextProvider} from './context/GiftsContext';
+import Read from './pages/Read';
 
 function App() {
+  localStorage.setItem('defaultKeyword', 'random')
+
+  const HomePage = lazy(() => import('./pages/Home'))
+  const ListPage = lazy(() => import('./pages/List'))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GiftsContextProvider>
+      <div className="App">
+        <Suspense fallback={"Loading..."}>
+          <section className="App-content">
+            <Route path='/' component={HomePage} />
+            <Route path='/gifts' component={ListPage} />
+            <Route path='/gifts/:id' component={Read} />
+          </section>
+        </Suspense>
+      </div>
+    </GiftsContextProvider>
   );
 }
 
