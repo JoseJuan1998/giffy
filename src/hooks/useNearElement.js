@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from "react"
 export default function useNearElement ({externalRef, once = true} = {}) {
   const elementRef = useRef()
   const [show, setShow] = useState(false)
-  const element = externalRef ? externalRef.current : elementRef.current
 
   useEffect(function () {
+    const element = externalRef ? externalRef.current : elementRef.current
     let observer
     
     const onChange = (entries, observer) => {

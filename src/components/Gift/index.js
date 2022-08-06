@@ -17,4 +17,4 @@ function LazyGift ({gift}) {
   </div>
 }
 
-export default LazyGift
+export default memo(LazyGift)
