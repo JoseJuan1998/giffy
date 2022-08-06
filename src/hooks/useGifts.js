@@ -24,6 +24,7 @@ export function useGifts (search) {
     searchGift({search: keyword, page})
     .then(data => {
       setGifts(gifts.concat(data))
+      console.log(gifts)
       setLoading(false)
     })
     .catch(error => console.log(error))

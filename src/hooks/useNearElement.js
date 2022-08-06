@@ -32,6 +32,5 @@ export default function useNearElement ({externalRef, once = true} = {}) {
 
     return () => observer && observer.disconnect()
   })
-
   return {show, elementRef}
 }
