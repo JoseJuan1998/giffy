@@ -38,23 +38,23 @@ export function useGifts (search) {
 }
 
 export function useSingleGift(id) {
-  const [gift, setGift] = useState({});
+  const gifts = useGlobalGifts()
+  const globalGif = gifts.find(sGift => sGift.id === id)
+  const [gift, setGift] = useState(globalGif);
   const {setGifts} = useContext(GiftsContext)
 
-  const getSingleGift = () => {
-    getGift(id)
-    .then(data => {
-     setGifts([]) 
-     setGift(data)
-    })
-  }
-
   useEffect(() => {
-    getSingleGift()
-  }, [])
+    if(!gift) {
+      getGift(id)
+        .then(data => {
+        setGifts([]) 
+        setGift(data)
+    })
+    }
+  }, [id, setGifts])
 
   return gift
-}
+}  
 
 export function useGlobalGifts() {
   return useContext(GiftsContext).gifts
