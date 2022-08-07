@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { searchGift } from "../services/api"
+import { searchGift, getGift } from "../services/api"
 import GiftsContext from '../context/GiftsContext'
 
 const INITIAL_PAGE = 0
@@ -9,7 +9,12 @@ export function useGifts (search) {
   const {gifts, setGifts} = useContext(GiftsContext)
   const [loading, setLoading] = useState(true)
 
-  const keyword = search != null ? search : localStorage.getItem('defaultKeyword')
+  const setNewKey = () => {
+    localStorage.setItem('defaultKeyword', search)
+    return localStorage.getItem('defaultKeyword')
+  }
+
+  const keyword = search != null ? setNewKey() : localStorage.getItem('defaultKeyword')
   
   useEffect(() => {
     searchGift({search: keyword})
@@ -24,13 +29,31 @@ export function useGifts (search) {
     searchGift({search: keyword, page})
     .then(data => {
       setGifts(gifts.concat(data))
-      console.log(gifts)
       setLoading(false)
     })
     .catch(error => console.log(error))
   }, [page, setGifts])
 
   return {loading, gifts, page, setPage}
+}
+
+export function useSingleGift(id) {
+  const [gift, setGift] = useState({});
+  const {setGifts} = useContext(GiftsContext)
+
+  const getSingleGift = () => {
+    getGift(id)
+    .then(data => {
+     setGifts([]) 
+     setGift(data)
+    })
+  }
+
+  useEffect(() => {
+    getSingleGift()
+  }, [])
+
+  return gift
 }
 
 export function useGlobalGifts() {

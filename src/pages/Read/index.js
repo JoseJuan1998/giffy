@@ -1,12 +1,11 @@
 import { useLocation } from "wouter"
 import Gift from "../../components/Gift"
-import { useGlobalGifts } from '../../hooks/useGifts'
+import { useSingleGift } from "../../hooks/useGifts"
 
 const Read = ({params: {id}}) => {
   const pushLocation = useLocation()[1]
 
-  const gifts = useGlobalGifts()
-  const gift = gifts.find(g => g.id === id)
+  const gift = useSingleGift(id)
 
   const goList = () => {
     pushLocation('/gifts')
