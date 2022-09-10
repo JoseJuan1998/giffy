@@ -4,11 +4,11 @@ const searchURL = (search, limit, page) => {
   return `${BASE_URL}/gifs/search?api_key=${API_KEY}&q=${search}&limit=${limit}&offset=${page*limit}&rating=g&lang=en`
 }
 
-const oneGiftURL = (id) => {
+const oneGifURL = (id) => {
   return `${BASE_URL}/content/${id}?api_key=${API_KEY}`
 }
 
-export const searchGift = ({search, limit = 25, page = 0}) => {
+export const searchGif = ({search, limit = 25, page = 0}) => {
   return fetch(searchURL(search, limit, page))
   .then(res => res.json())
   .then(({data}) => {
@@ -22,8 +22,8 @@ export const searchGift = ({search, limit = 25, page = 0}) => {
   })
 }
 
-export const getGift = (id) => {
-  return fetch(oneGiftURL(id))
+export const getGif = (id) => {
+  return fetch(oneGifURL(id))
   .then(res => res.json())
   .then(({data}) => {
     return {

@@ -1,20 +1,20 @@
 import { lazy, Suspense, memo } from "react"
 import useNearElement from "../../hooks/useNearElement"
 
-const Gift = lazy(
-  () => import('./Gift')
+const Gif = lazy(
+  () => import('./Gif')
 )
 
-function LazyGift ({gift}) {
+function LazyGif ({gif}) {
   const {show, elementRef} = useNearElement()
 
   return <div ref={elementRef} className="picture">
       {
         show && <Suspense fallback={'Loading...'}>
-          <Gift gift={gift}/>
+          <Gif gif={gif}/>
         </Suspense>
       }
   </div>
 }
 
-export default memo(LazyGift)
+export default memo(LazyGif)

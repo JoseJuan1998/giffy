@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useLocation } from 'wouter'
-import GiftList from '../../components/GiftList'
-import GiftSearch from '../../components/GiftSearch'
+import GifList from '../../components/GifList'
+import GifSearch from '../../components/GifSearch'
+// import { useSEO } from '../../hooks/useSEO'
+import { Helmet } from 'react-helmet'
 
 const List = () => {
 
   const [search, setSearch] = useState()
-
   const pushLocation = useLocation()[1]
+  // const title = Boolean(search) ? {title: search} : {title: 'List'}
+
+  // useSEO({...title, description: 'list of gifs'})
 
   const goHome = () => {
     pushLocation('/')
@@ -15,10 +19,14 @@ const List = () => {
 
   return (
     <>
-      <GiftSearch setSearch={setSearch} />
+      <Helmet>
+        <title>List | Gifs</title>
+        <meta name="description" content="List of gifs" />
+      </Helmet>
+      <GifSearch setSearch={setSearch} />
       <h3 className=".home-button" onClick={goHome} style={{cursor: 'pointer'}}>{'< Home'}</h3>
       {/* <Pagination search={search} /> */}
-      <GiftList search={search} />
+      <GifList search={search} />
     </>
   )
 }

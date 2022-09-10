@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { useGifts } from '../../hooks/useGifts'
+import { useGifs } from '../../hooks/useGifs'
 
 const Pagination = ({search}) => {
-  const {page, setPage} = useGifts(search)
+  const {page, setPage} = useGifs(search)
 
   const handleSetPreviousPage = () => {
+    console.log('Page updated')
     setPage(p =>{
       if(p === 0) return 0
       return p - 1
@@ -12,12 +13,11 @@ const Pagination = ({search}) => {
   }
 
   const handleSetNextPage = () => {
+    console.log('Page updated')
     setPage(p =>{
       return p + 1
     })
   }
-
-  useEffect(() => {console.log(page)}, [page])
 
   return (
     <div className='btn-container'>

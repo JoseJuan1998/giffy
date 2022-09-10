@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route } from 'wouter';
 import './App.css';
-import {GiftsContextProvider} from './context/GiftsContext';
+import {GifsContextProvider} from './context/GifsContext';
 import Read from './pages/Read';
 
 function App() {
@@ -11,17 +11,18 @@ function App() {
   const ListPage = lazy(() => import('./pages/List'))
 
   return (
-    <GiftsContextProvider>
+    <GifsContextProvider>
       <div className="App">
-        <Suspense fallback={"Loading..."}>
-          <section className="App-content">
+        <section className="App-content">
+          <Suspense fallback={"Loading..."}>
             <Route path='/' component={HomePage} />
-            <Route path='/gifts' component={ListPage} />
-            <Route path='/gifts/:id' component={Read} />
-          </section>
-        </Suspense>
+            <Route path='/Gifs' component={ListPage} />
+            <Route path='/Gifs/:id' component={Read} />
+            <Route path='/404' component={() => <h1>{'404 Error :('}</h1>} />
+          </Suspense>
+        </section>
       </div>
-    </GiftsContextProvider>
+    </GifsContextProvider>
   );
 }
 

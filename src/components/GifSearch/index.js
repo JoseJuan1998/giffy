@@ -1,7 +1,7 @@
 import debounce from 'just-debounce-it'
 import React, {useCallback, memo} from 'react'
 
-const GiftSearch = ({setSearch}) => {
+const GifSearch = ({setSearch}) => {
   const handleSearch = useCallback(debounce(
     (e) => {
       const keyword = e.target.value !== '' ? e.target.value : null
@@ -15,4 +15,4 @@ const GiftSearch = ({setSearch}) => {
   )
 } 
 
-export default memo(GiftSearch)
+export default memo(GifSearch)
